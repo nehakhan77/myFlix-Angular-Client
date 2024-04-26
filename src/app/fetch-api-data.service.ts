@@ -3,18 +3,19 @@ import { catchError } from 'rxjs/internal/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
 
 //Declaring the api url that will provide data for the client app
-const apiUrl = 'https://careerfoundry-movieflix-59ee318aca62.herokuapp.com/';
+const apiUrl = 'YOUR_HOSTED_API_URL_HERE/';
 @Injectable({
   providedIn: 'root'
 })
 export class UserRegistrationService {
   // Inject the HttpClient module to the constructor params
- // This will provide HttpClient to the entire class, making it available via this.http
+  // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) {
   }
- // Making the api call for the user registration endpoint
+  // Making the api call for the user registration endpoint
   public userRegistration(userDetails: any): Observable<any> {
     console.log(userDetails);
     return this.http.post(apiUrl + 'users', userDetails).pipe(
@@ -66,24 +67,87 @@ export class UserRegistrationService {
       );
     }
 
+  getUser(Username: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.get(apiUrl + 'users/' + Username, {headers: new HttpHeaders(
+        {
+          Authorization: 'Bearer ' + token,
+        })}).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
+    }
+
+  getUserFavoriteMovies(Username: string, MovieID: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.get(apiUrl + 'users/' + Username + 'movies/' + MovieID , {headers: new HttpHeaders(
+        {
+          Authorization: 'Bearer ' + token,
+        })}).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
+    }
+
+  addFavoriteMovies(Username: string, MovieID: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.post(apiUrl + 'users/' + Username + 'movies/' + MovieID , {headers: new HttpHeaders(
+        {
+          Authorization: 'Bearer ' + token,
+        })}).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
+    }
+
+  editUser(Username: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.put(apiUrl + 'users/' + Username, {headers: new HttpHeaders(
+        {
+          Authorization: 'Bearer ' + token,
+        })}).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
+    }
+
+  deleteUser(Username: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.delete(apiUrl + 'users/' + Username, {headers: new HttpHeaders(
+        {
+          Authorization: 'Bearer ' + token,
+        })}).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
+    }
+
+  deleteFavoriteMovies(Username: string, MovieID: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.delete(apiUrl + 'users/' + Username + 'movies/' + MovieID , {headers: new HttpHeaders(
+        {
+          Authorization: 'Bearer ' + token,
+        })}).pipe(
+        map(this.extractResponseData),
+        catchError(this.handleError)
+      );
+    }
+
   // Non-typed response extraction
   private extractResponseData(res: any): any {
     const body = res;
     return body || { };
   }
 
-  private handleError(error: HttpErrorResponse): Observable {
+  private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
-    // A client-side or network error occurred. Handle it accordingly.
-    console.error('An error occurred:', error.error.message);
+    console.error('Some error occurred:', error.error.message);
     } else {
-    // The backend returned an unsuccessful response code.
-    // The response body may contain clues as to what went wrong.
     console.error(
-      `Error Status code ${error.status}, ` +
-      `Error body is: ${error.error}`);
+        `Error Status code ${error.status}, ` +
+        `Error body is: ${error.error}`);
     }
-    // Return an observable with a user-facing error message.
-    return throwError(() => new Error('Something bad happened; please try again later.'));
-    }
+    return throwError(
+    'Something bad happened; please try again later.');
   }
+}
