@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, catchError, map } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 //Declaring the api url that will provide data for the client app
 const apiUrl = 'https://careerfoundry-movieflix-59ee318aca62.herokuapp.com/';
 @Injectable({
   providedIn: 'root'
 })
-export class UserRegistrationService {
+export class FetchApiDataService {
   // Inject the HttpClient module to the constructor params
   // This will provide HttpClient to the entire class, making it available via this.http
   constructor(private http: HttpClient) { }
@@ -21,7 +23,7 @@ export class UserRegistrationService {
 
   public userLogin(userDetails: any): Observable<any> {
     console.log(userDetails);
-    return this.http.post(apiUrl + 'users', userDetails).pipe(
+    return this.http.post(apiUrl + 'login', userDetails).pipe(
       catchError(this.handleError)
     );
   }
@@ -37,6 +39,12 @@ export class UserRegistrationService {
       map(this.extractResponseData),
       catchError(this.handleError)
     );
+  }
+
+  // Non-typed response extraction
+  private extractResponseData(res: object): any {
+    const body = res;
+    return body || {};
   }
 
   getOneMovie(title: string): Observable<any> {
@@ -156,13 +164,8 @@ export class UserRegistrationService {
     );
   }
 
-  // Non-typed response extraction
-  private extractResponseData(res: Object): any {
-    const body = res;
-    return body || {};
-  }
-
-  private handleError(error: HttpErrorResponse) {
+  //Handling of HTTP errors.
+  private handleError(error: HttpErrorResponse): any {
     if (error.error instanceof ErrorEvent) {
       console.error('Some error occurred:', error.error.message);
     } else {
@@ -170,6 +173,9 @@ export class UserRegistrationService {
         `Error Status code ${error.status}, ` +
         `Error body is: ${error.error}`);
     }
-    return throwError(() => new Error('Something bad happened; please try again later.'));
+    // Return an observable with an error message
+    const err = new Error('Something went wrong, please try again later.');
+    throwError(() => err);
   }
+
 }
