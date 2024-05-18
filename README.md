@@ -1,27 +1,28 @@
 # MyFlixMoviesAngularClient
 
+# Project Description
+
+MyFlixMovies is a single page, responsive app, with multiple interfaces that allow users to discover their new favorite movies! The application includes the client-side which is built on Angular, and handles data through an exisiting server-side code (REST API and Database). 
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.5.
 
-## Development server
+## Features 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Users can get more information on movies, genres, and directors.
 
-## Code scaffolding
+- Users can create their own profile where they can save their favorite movies into and update their personal information.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Users can add and removie movies from their favorites.
 
-## Build
+## Dependencies
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Link to Application 
 
-## Running end-to-end tests
+Hosted on Github: https://nehakhan77.github.io/myFlix-Angular-Client/
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+## User Interfaces
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<img width="1271" alt="Screenshot 2024-05-18 at 12 52 10 PM" src="https://github.com/nehakhan77/myFlix-Angular-Client/assets/136394004/50f4689b-d516-4f7b-a7a0-5490551d2962">
