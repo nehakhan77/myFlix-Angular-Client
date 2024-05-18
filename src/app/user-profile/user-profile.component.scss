@@ -1,0 +1,46 @@
+.profile-container {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+}
+
+.profile-overview {
+  padding: 50px;
+  margin: 50px;
+}
+
+.form-container {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+}
+
+.update_form {
+  padding: 20px;
+  margin: 20px;
+  width: 94%;
+}
+
+.favorite-list {
+  display: inline-block;
+}
+
+.fav-movie-image {
+    width: 350px;
+    height: 700px;
+    height: auto;
+    margin: 5px;
+    display: inline;
+}
+
+.favorite-list {
+  float: left;
+}
+
+h1 {
+  text-align: center;
+}
+
+.no-favorites-section {
+  text-align: center;
+}
