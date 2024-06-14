@@ -1,0 +1,5 @@
+{
+    "entryPointStrategy": "expand",
+    "entryPoints": ["./src/main.ts", "./src/app/director-info/", "./src/app/genre-info/", "./src/app/movie-card/", "./src/app/movie-synopsis/", "./src/app/navbar/", "./src/app/user-login-form/", "./src/app/user-profile/", "./src/app/user-registration-form/", "./src/app/welcome-page/"],
+    "out": "./docs"
+}
